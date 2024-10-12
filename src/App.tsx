@@ -37,7 +37,8 @@ function App() {
         </section>
         <section className=' bg-green-400 max-h-full max-w-full'>
           {tasksArray.map(task => <h1 key={task.id}>{task.description}</h1>)}
-          <h1>hola mundo</h1>
+          <h1>hola mundoasdasdasdas</h1>
+          
         </section>
       </main>
 
