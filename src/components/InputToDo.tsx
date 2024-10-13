@@ -12,10 +12,6 @@ export const InputToDo = ({addNewTask}) => {
     setTask("")
   }
 
-
-  const newTask = (event: React.MouseEvent<HTMLButtonElement>): void =>{
-    
-  }
   return (
     <>
     <div className="col-span-2 row-start-2">
