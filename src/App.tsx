@@ -10,21 +10,31 @@ interface TaskInterface {
   date?: Date;
 }
 
+
+
 function App() {
 
   const [tasksArray, setTasksArray] = useState<TaskInterface[]>([]);
+  const [lastId, setLastId] = useState(1)
 
   const addNewTask = (valueTask: string): void => {
     if (valueTask.length < 1) return;
     const objectTask: TaskInterface = {
-      id: tasksArray.length + 1,
+      id: lastId ,
       description: valueTask,
       statusTask: "No Iniciado",
       finish: false,
       date: new Date(),
     };
     setTasksArray([...tasksArray, objectTask]);
+    setLastId(lastId + 1);
   };
+
+  const deleteTask = (id:string):void =>{
+    const updateTask = tasksArray.filter((task) => task.id !== parseInt(id)); 
+    setTasksArray(updateTask)
+
+  }
 
   return (
     <>
@@ -34,8 +44,7 @@ function App() {
           <InputToDo addNewTask={addNewTask} />
         </section>
         <section className=" grid grid-cols-3 grid-rows-1 gap-4">
-          <CardTask taskArray = {tasksArray} />
-          
+          <CardTask taskArray = {tasksArray} deleteTask ={deleteTask} />
         </section>
       </main>
     </>
