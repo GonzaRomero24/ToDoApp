@@ -8,13 +8,14 @@ export const InputToDo = ({ addNewTask }) => {
   };
 
   const prioritySelected = (e : React.ChangeEvent<HTMLSelectElement> ) =>{
-    console.log(e.target.value)
     setPriority(e.target.value)
   }
 
   const sendTask = (event: React.MouseEvent<HTMLButtonElement>) => {
     event.preventDefault();
-    addNewTask(task);
+    console.log(task)
+    console.log(priority)
+    addNewTask(task, priority);
     setTask("");
   };
 
@@ -32,7 +33,7 @@ export const InputToDo = ({ addNewTask }) => {
             <label htmlFor="priority" className="mr-3 text-white">
               Prioridad:
             </label>
-            <select name="priority" value={priority} onChange={prioritySelected} className=" shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
+            <select name="priority" value={'Alta'} onChange={prioritySelected} className=" shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
               <option value={'Alta'}>🔴Alta</option>
               <option value={'Media'}>🟠Media</option>
               <option value={'Baja'}>🔵Baja</option>

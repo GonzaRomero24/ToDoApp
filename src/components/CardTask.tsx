@@ -4,6 +4,7 @@ type Props = {
     id: number;
     description: string;
     statusTask: string;
+    priority: string;
     finish: boolean;
     date?: Date;
   }>;
@@ -23,6 +24,7 @@ export const CardTask = ({ taskArray, deleteTask }: Props) => {
               <p className="text-gray-900" key={task.id}>
                 {task.description} {task.id}
               </p>
+              <p>{task.priority}</p>
             </div>
             <div className="col-start-4">
               <Buttons typeButton={"Eliminar"} idButton = {task.id} onClick = {deleteTask}/>
