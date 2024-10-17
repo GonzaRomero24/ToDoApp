@@ -20,11 +20,11 @@ export const CardTask = ({ taskArray, deleteTask }: Props) => {
             key={task.id}
             className="grid grid-cols-1 grid-rows-1 gap-4 p-5 bg-[#00accc] bg-opacity-60"
           >
-            <div className=" grid justify-items-center col-span-3 m-1 bg-[#00f4ff] max-h-full max-w-full ">
-              <p className="text-gray-900" key={task.id}>
+            <div className=" grid justify-items-center col-span-3 m-1 bg-[#4339a9] max-h-full max-w-full ">
+              <p className="text-[#f8ecd4]" key={task.id}>
                 {task.description} {task.id}
               </p>
-              <p>{task.priority}</p>
+              <p className='text-[#f8ecd4]'>{task.priority}</p>
             </div>
             <div className="col-start-4">
               <Buttons typeButton={"Eliminar"} idButton = {task.id} onClick = {deleteTask}/>
