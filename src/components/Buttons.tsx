@@ -2,7 +2,7 @@
 type typeButton ={
   typeButton : string;
   idButton : number;
-  onClick : (value: number) => void;
+  onClick : (value: string) => void;
 };
 
 export const Buttons = ({typeButton , idButton, onClick} : typeButton) => {

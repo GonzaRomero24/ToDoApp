@@ -7,7 +7,7 @@ type Props = {
     finish: boolean;
     date?: Date;
   }>;
-  deleteTask: (value: number) => void;
+  deleteTask: (value: string) => void;
 };
 
 export const CardTask = ({ taskArray, deleteTask }: Props) => {
