@@ -17,7 +17,7 @@ function App() {
 
   const addNewTask = (valueTask:string): void =>{
     if(valueTask.length < 1 ) return
-    const TaskInterface = {
+    const TaskInterface : TaskInterface = {
       id: tasksArray.length + 1,
       description: valueTask,
       statusTask: "No Iniciado",
