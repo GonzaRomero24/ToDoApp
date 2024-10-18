@@ -6,7 +6,8 @@ interface TaskInterface {
   id: number;
   description: string;
   statusTask: string;
-  priority: string
+  priority: string;
+  taskType: string;
   finish: boolean;
   date?: Date;
 }
@@ -18,13 +19,14 @@ function App() {
   const [tasksArray, setTasksArray] = useState<TaskInterface[]>([]);
   const [lastId, setLastId] = useState(1)
 
-  const addNewTask = (valueTask: string, priority: string): void => {
+  const addNewTask = (valueTask: string, priority: string, taskType:string): void => {
     if (valueTask.length < 1) return;
     const objectTask: TaskInterface = {
       id: lastId ,
       description: valueTask,
       statusTask: "No Iniciado",
       priority : priority,
+      taskType: taskType,
       finish: false,
       date: new Date(),
     };

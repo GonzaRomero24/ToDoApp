@@ -1,18 +1,20 @@
+import React from 'react'
 
 type typeButton ={
-  typeButton : string;
+  typebutton : React.ReactNode;
   idButton : number;
   onClick : (value: string) => void;
+  colorButton : string;
 };
 
-export const Buttons = ({typeButton , idButton, onClick} : typeButton) => {
+export const Buttons = ({typebutton , idButton, onClick , colorButton} : typeButton) => {
   const typeEvent = (event) =>{
     onClick(event.target.value)
   }
   return (
     <>
-      <button value={idButton} onClick={typeEvent} className=" bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 m-2 rounded">
-        {typeButton}
+      <button value={idButton} onClick={typeEvent} className={colorButton}>
+        {typebutton}
       </button>
     </>
   );
