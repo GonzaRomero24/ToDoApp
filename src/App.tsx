@@ -17,6 +17,7 @@ interface TaskInterface {
 function App() {
 
   const [tasksArray, setTasksArray] = useState<TaskInterface[]>([]);
+  const [taskStartArray, setTaskStartArray] = useState<TaskInterface[]>([])
   const [lastId, setLastId] = useState(1)
 
   const addNewTask = (valueTask: string, priority: string, taskType:string): void => {
@@ -40,6 +41,24 @@ function App() {
 
   }
 
+  const startTask = (id:string):void =>{
+    const getTask = tasksArray.filter((task) => task.id === parseInt(id));
+    getTask.map((task) =>{
+      const objectTask : TaskInterface ={
+        id: task.id,
+        description: task.description,
+        statusTask: "Iniciado",
+        priority: task.priority,
+        taskType: task.taskType,
+        finish: false,
+        date: task.date,
+      };
+      setTaskStartArray([...taskStartArray, objectTask])
+      deleteTask(id)
+    })
+    
+  }
+
   return (
     <>
       <main className=" ">
@@ -48,7 +67,7 @@ function App() {
           <InputToDo addNewTask={addNewTask} />
         </section>
         <section className=" grid grid-cols-3 grid-rows-1 gap-4">
-          <CardTask taskArray = {tasksArray} deleteTask ={deleteTask} />
+          <CardTask taskArray = {tasksArray} taskStartArray={taskStartArray} deleteTask ={deleteTask} startTask={startTask} />
         </section>
       </main>
     </>
