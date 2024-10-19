@@ -20,15 +20,19 @@ interface TaskInterface {
 type Props = {
   taskArray: TaskInterface[];
   taskStartArray: TaskInterface[];
+  taskFinishArray: TaskInterface[];
   deleteTask: (value: string) => void;
   startTask: (value: string) => void;
+  finishTask: (value: string) => void;
 };
 
 export const CardTask = ({
   taskArray,
   taskStartArray,
+  taskFinishArray,
   deleteTask,
   startTask,
+  finishTask
 }: Props) => {
   const [taskView, setTaskView] = useState<TaskInterface[]>([]);
   const [view, setView] = useState<boolean>(false);
@@ -52,15 +56,18 @@ export const CardTask = ({
         {taskArray.map((task) => (
           <div
             key={task.id}
-            className="max-w-sm h-64 rounded overflow-hidden shadow-lg"
+            className="bg-[#E0E0E0] max-w-sm h-64 rounded overflow-hidden shadow-lg m-4"
           >
             <div className="px-6 py-4">
               <div className="font-bold text-xl mb-2">Tarea N°{task.id}</div>
               <p className="text-gray-700 text-base">{task.description}</p>
             </div>
             <div className="px-6 pt-4 pb-2">
-              {}
-              <span className="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2">
+              <>
+              {task.priority == 'Alta' ? console.log('gads'): console.log('SADAS')}
+              </>
+              <span className={task.priority == 'Alta' ? "inline-block bg-red-300 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2"
+                : task.priority == 'Media'? 'inline-block bg-orange-300 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2': 'inline-block bg-blue-300 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2'}>
                 Prioridad: {task.priority}
               </span>
               <span className="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2">
@@ -70,7 +77,7 @@ export const CardTask = ({
                 Estado: {task.statusTask}
               </span>
             </div>
-            <div className="flex justify-center">
+            <div className="flex justify-center ">
               <Buttons
                 typebutton={<FaRegTrashAlt />}
                 idButton={task.id}
@@ -103,15 +110,15 @@ export const CardTask = ({
         {taskStartArray.map((task) => (
           <div
             key={task.id}
-            className="max-w-sm h-64 rounded overflow-hidden shadow-lg"
+            className="bg-[#FFD54F] max-w-sm h-64 rounded overflow-hidden shadow-lg"
           >
             <div className="px-6 py-4">
               <div className="font-bold text-xl mb-2">Tarea N°{task.id}</div>
               <p className="text-gray-700 text-base">{task.description}</p>
             </div>
             <div className="px-6 pt-4 pb-2">
-              {}
-              <span className="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2">
+              <span className={task.priority == 'Alta' ? "inline-block bg-red-300 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2"
+                : task.priority == 'Media'? 'inline-block bg-orange-300 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2': 'inline-block bg-blue-300 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2'}>
                 Prioridad: {task.priority}
               </span>
               <span className="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2">
@@ -141,9 +148,52 @@ export const CardTask = ({
               <Buttons
                 typebutton={<FaArrowCircleRight />}
                 idButton={task.id}
-                onClick={startTask}
+                onClick={finishTask}
                 colorButton={
                   " bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 m-2 rounded"
+                }
+              />
+            </div>
+          </div>
+        ))}
+      </article>
+      <article className="grid grid-cols-1 grid-rows-1 gap-4 m-5">
+        {taskFinishArray.map((task) => (
+          <div
+            key={task.id}
+            className="bg-green-500 max-w-sm h-64 rounded overflow-hidden shadow-lg"
+          >
+            <div className="px-6 py-4">
+              <div className="font-bold text-xl mb-2">Tarea N°{task.id}</div>
+              <p className="text-gray-700 text-base">{task.description}</p>
+            </div>
+            <div className="px-6 pt-4 pb-2">
+              <span className={task.priority == 'Alta' ? "inline-block bg-red-300 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2"
+                : task.priority == 'Media'? 'inline-block bg-orange-300 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2': 'inline-block bg-blue-300 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2'}>
+                Prioridad: {task.priority}
+              </span>
+              <span className="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2">
+                Tipo Tarea: {task.taskType}
+              </span>
+              <span className="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2">
+                Estado: {task.statusTask}
+              </span>
+            </div>
+            <div className="flex justify-center">
+              <Buttons
+                typebutton={<FaRegTrashAlt />}
+                idButton={task.id}
+                onClick={deleteTask}
+                colorButton={
+                  " bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 m-2 rounded"
+                }
+              />
+              <Buttons
+                typebutton={<FaEye />}
+                idButton={task.id}
+                onClick={viewTask}
+                colorButton={
+                  " bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 m-2 rounded"
                 }
               />
             </div>
@@ -153,7 +203,7 @@ export const CardTask = ({
       {view ? (
         <Modal view={view} closeModal={closeModal} taskView={taskView} />
       ) : (
-        console.log("fuera")
+        console.log()
       )}
     </>
   );

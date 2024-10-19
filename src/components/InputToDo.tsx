@@ -38,7 +38,7 @@ export const InputToDo = ({ addNewTask }: Props) => {
   return (
     <>
       <div className="col-span-2 row-start-2">
-        <form className="grid grid-cols-5 grid-rows-1 gap-4 mb-3">
+        <form className="grid grid-cols-6 grid-rows-1 gap-4 mb-3">
           <input
             onChange={inputChange}
             value={task}
@@ -69,7 +69,7 @@ export const InputToDo = ({ addNewTask }: Props) => {
           </div>
           <button
             onClick={sendTask}
-            className="col-start-5 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+            className="col-start-5 bg-[#5CB85C] hover:bg-green-400 text-white font-bold rounded"
           >
             Guardar Tarea
           </button>

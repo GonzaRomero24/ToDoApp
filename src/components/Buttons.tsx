@@ -8,7 +8,10 @@ type typeButton ={
 };
 
 export const Buttons = ({typebutton , idButton, onClick , colorButton} : typeButton) => {
+
+
   const typeEvent = (event) =>{
+    console.log(event.target.value)
     onClick(event.target.value)
   }
   return (
