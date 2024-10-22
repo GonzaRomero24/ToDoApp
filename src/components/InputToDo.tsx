@@ -1,28 +1,26 @@
-import { useState } from "react";
+import { useAddTask } from "../hooks/useAddTask";
 
 type Props ={
   addNewTask :(task:string, priority:string, taskType:string) => void ;
 }
 
 export const InputToDo = ({ addNewTask }: Props) => {
-  const [task, setTask] = useState("");
-  const [priority, setPriority] = useState("")
-  const [taskType, setTaskType] = useState("")
 
-  const inputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setTask(event.target.value);
+  const{task, priority, taskType, inputChangeval, prioritySelectedval, taskTypeSelectedval } = useAddTask()
+
+  const inputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    e.preventDefault()
+    inputChangeval(e.target.value)
   };
 
   const prioritySelected = (e : React.ChangeEvent<HTMLSelectElement> ) =>{
-    e.preventDefault();
-    console.log(e.target)
-    setPriority(e.target.value)
+    e.preventDefault()
+    prioritySelectedval(e.target.value)
   }
 
   const taskTypeSelected = (e : React.ChangeEvent<HTMLSelectElement> ) =>{
-    e.preventDefault();
-    console.log(e.target)
-    setTaskType(e.target.value)
+    console.log(e.target.value)
+    taskTypeSelectedval(e.target.value)
   }
 
   const sendTask = (event: React.MouseEvent<HTMLButtonElement>) => {
@@ -30,9 +28,9 @@ export const InputToDo = ({ addNewTask }: Props) => {
     console.log(task)
     console.log(priority)
     addNewTask(task, priority, taskType);
-    setTask("");
-    setPriority("");
-    setTaskType("");
+    inputChangeval("")
+    prioritySelectedval("");
+    taskTypeSelectedval("");
   };
 
   return (

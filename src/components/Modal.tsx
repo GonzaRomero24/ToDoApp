@@ -40,7 +40,13 @@ export const Modal = ({ view, closeModal, taskView }: Prop) => {
                   </div>
                   <div className="relative p-6 flex-auto">
                     <p className="my-4 text-blueGray-500 text-lg leading-relaxed">
-                      {task.description}
+                      Descripcion: {task.description}
+                    </p>
+                    <p className="my-4 text-blueGray-500 text-lg leading-relaxed">
+                      Prioridad: {task.priority}
+                    </p>
+                    <p className="my-4 text-blueGray-500 text-lg leading-relaxed">
+                      Tipo Tarea: {task.taskType}
                     </p>
                   </div>
                   <div className="flex items-center justify-end p-6 border-t border-solid border-blueGray-200 rounded-b">

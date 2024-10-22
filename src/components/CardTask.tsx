@@ -47,6 +47,16 @@ export const CardTask = ({
     }
   };
 
+  const viewTaskinitial = (id: string): void =>{
+    const viewTaskArrayInitial = taskStartArray.filter((task) => task.id === parseInt(id));
+    if(viewTaskArrayInitial.length > 0){
+      setView(true);
+      setTaskView(viewTaskArrayInitial);
+    }else{
+      setView(false);
+    }
+  }
+
   const closeModal = (close: boolean): void => {
     setView(close);
   };
@@ -140,7 +150,7 @@ export const CardTask = ({
               <Buttons
                 typebutton={<FaEye />}
                 idButton={task.id}
-                onClick={viewTask}
+                onClick={viewTaskinitial}
                 colorButton={
                   " bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 m-2 rounded"
                 }
