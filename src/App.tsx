@@ -2,7 +2,7 @@ import { useState } from "react";
 import { InputToDo } from "./components/InputToDo";
 import { CardTask } from "./components/CardTask";
 
-interface TaskInterface {
+type TaskInterface = {
   id: number;
   description: string;
   statusTask: string;
@@ -16,90 +16,91 @@ interface TaskInterface {
 
 function App() {
 
+  //UseState
   const [tasksArray, setTasksArray] = useState<TaskInterface[]>([]);
   const [taskStartArray, setTaskStartArray] = useState<TaskInterface[]>([]);
   const [taskFinishArray, setTaskFinishArray] = useState<TaskInterface[]>([]);
-  const [lastId, setLastId] = useState(1)
+  const [lastId, setLastId] = useState<number>(1)
 
-  const addNewTask = (valueTask: string, priority: string, taskType:string): void => {
-    if (valueTask.length < 1) return;
+  //Funcion para crear un Obketo dependiendo que desea realizar con la tarea
+  const createObjectTask = (id : number,  valueTask: string, statusTask:string, priority:string, taskType:string, finish:boolean) =>{
     const objectTask: TaskInterface = {
-      id: lastId ,
+      id: id ,
       description: valueTask,
-      statusTask: "No Iniciado",
+      statusTask: statusTask,
       priority : priority,
       taskType: taskType,
-      finish: false,
+      finish: finish,
       date: new Date(),
     };
+    return objectTask
+  }
+
+   /*Funcion para para Agregar una tarea */
+  const addNewTask = (valueTask: string, priority: string, taskType:string): void => {
+    if (valueTask.length < 1) return;
+    const statusTask = 'No Iniciado';
+    const finish = false
+    const objectTask = createObjectTask(lastId,  valueTask, statusTask, priority, taskType, finish  )
     setTasksArray([...tasksArray, objectTask]);
     setLastId(lastId + 1);
   };
-
-  const foundId = (id:string) =>{
-    const foundTaskArray = tasksArray.filter((task) => task.id === parseInt(id));
-    if(foundTaskArray.length > 0){
-      return 'taskArray'
-    }else{
-      const foundTastStartArray = taskStartArray.filter((task) => task.id === parseInt(id));
-      if(foundTastStartArray.length > 0){
-        return 'taskStartArray'
-      }else{
-        return 'Finish'
-      }
-      
-    }
-  }
-
-  const deleteTask = (id:string):void =>{
-    const found  = foundId(id);
-    if(found == 'taskArray'){
-      const updateTask = tasksArray.filter((task) => task.id !== parseInt(id));
-      setTasksArray(updateTask);
-    }else if(found == 'taskStartArray'){
-      const updateTaskStart = taskStartArray.filter((task) => task.id !== parseInt(id));
-      setTaskStartArray(updateTaskStart);
-    }else{
-      const updateTaskFinish = taskFinishArray.filter((task) => task.id !== parseInt(id));
-      setTaskFinishArray(updateTaskFinish);
-    }
-  }
-
+  
+   /*Funcion para para Inicializar una tarea */
   const startTask = (id:string):void =>{
     const getTask = tasksArray.filter((task) => task.id === parseInt(id));
+    const statusTask = 'Iniciado'
+    const finish  = false;
     getTask.map((task) =>{
-      const objectTask : TaskInterface ={
-        id: task.id,
-        description: task.description,
-        statusTask: "Iniciado",
-        priority: task.priority,
-        taskType: task.taskType,
-        finish: false,
-        date: task.date,
-      };
+      const objectTask = createObjectTask(task.id,  task.description, statusTask, task.priority, task.taskType, finish )
       setTaskStartArray([...taskStartArray, objectTask]);
       deleteTask(id);
     })
   }
 
+  /*Funcion para para finalizar una tarea */
   const finishTask = (id: string) =>{
     const getTaskStart = taskStartArray.filter((task) => task.id === parseInt(id));
+    const statusTask = 'Finalizado'
+    const finish  = false;
     getTaskStart.map((task) =>{
-      const objectTask : TaskInterface = {
-        id: task.id,
-        description: task.description,
-        statusTask: "Finalizado",
-        priority: task.priority,
-        taskType: task.taskType,
-        finish: false,
-        date: new Date(),
-      };
-
+      const objectTask = createObjectTask(task.id,  task.description, statusTask, task.priority, task.taskType, finish )
       setTaskFinishArray([...taskFinishArray, objectTask]);
       deleteTask(id);
     })
-
   }
+  /* Fumcion para Buscar la ID de la task en el array que le manden*/
+  const foundId = (id:string , array: TaskInterface[]) =>{
+    const isFound = array.some((task) =>{
+      return task.id === parseInt(id)
+    })
+    return isFound
+  }
+
+   /* Fumcion para hacer un update al array, que se elimino*/
+  const updateTask = (id: string , array : TaskInterface[]) => {
+    const updateTask = array.filter((task) => task.id !== parseInt(id));
+    return updateTask
+  }
+
+   /* Fumcion para borrar las tareas*/
+  const deleteTask = (id:string):void =>{
+    const found  = foundId(id, tasksArray);
+    if(found){
+      const updateArray = updateTask(id, tasksArray)
+      setTasksArray(updateArray)
+    }else{
+      const found  = foundId(id, taskStartArray);
+      if(found){
+        const updateArrayStart = updateTask(id, taskStartArray)
+        setTaskStartArray(updateArrayStart)
+      }else{
+        const updateArrayFinish = updateTask(id, taskFinishArray)
+        setTaskFinishArray(updateArrayFinish)
+      }
+    }
+  }
+
 
   return (
     <>

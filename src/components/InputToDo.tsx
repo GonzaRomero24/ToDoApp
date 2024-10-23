@@ -19,7 +19,7 @@ export const InputToDo = ({ addNewTask }: Props) => {
   }
 
   const taskTypeSelected = (e : React.ChangeEvent<HTMLSelectElement> ) =>{
-    console.log(e.target.value)
+    e.preventDefault()
     taskTypeSelectedval(e.target.value)
   }
 
