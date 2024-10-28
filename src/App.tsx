@@ -28,17 +28,22 @@ const taskReduce = (state : typeof initialState, action: action) =>{
       return state.filter((task) => task.id !== action.payload as number)
 
     case 'Start-Task':
-      state.map((task) =>{
-        if(task.id === action.payload){
-          return [...state, task.statusTask = 'Iniciado']
+      return state.map((task) => {
+        if (task.id === action.payload) {
+          return { ...task, statusTask: 'Iniciado' };
         }
-        return task
+        return task;
       });
+
     case 'View-Task':
       return state
     case 'Finish-Task':
-      console.log('add-task')
-      return state
+      return state.map((task) => {
+        if (task.id === action.payload) {
+          return { ...task, statusTask: 'Finalizado' , finish: !task.finish };
+        }
+        return task;
+      });
     default:
       return state
   }
@@ -51,9 +56,9 @@ function App() {
   const [state, dispatch] = useReducer( taskReduce, initialState)
 
   //UseState
-  const [tasksArray, setTasksArray] = useState<TaskInterface[]>([]);
-  const [taskStartArray, setTaskStartArray] = useState<TaskInterface[]>([]);
-  const [taskFinishArray, setTaskFinishArray] = useState<TaskInterface[]>([]);
+  //const [tasksArray, setTasksArray] = useState<TaskInterface[]>([]);
+  //const [taskStartArray, setTaskStartArray] = useState<TaskInterface[]>([]);
+  //const [taskFinishArray, setTaskFinishArray] = useState<TaskInterface[]>([]);
   const [lastId, setLastId] = useState<number>(1)
 
   
@@ -100,29 +105,30 @@ function App() {
 
   /*Funcion para para finalizar una tarea */
   const finishTask = (id: string) =>{
-    
-    const getTaskStart = taskStartArray.filter((task) => task.id === parseInt(id));
+    const foundID = parseInt(id);
+    /*const getTaskStart = taskStartArray.filter((task) => task.id === parseInt(id));
     const statusTask = 'Finalizado'
     const finish  = false;
     getTaskStart.map((task) =>{
       const objectTask = createObjectTask(task.id,  task.description, statusTask, task.priority, task.taskType, finish )
       setTaskFinishArray([...taskFinishArray, objectTask]);
       deleteTask(id);
-    })
+    })*/
+    dispatch({type:'Finish-Task', payload: foundID})
   }
   /* Fumcion para Buscar la ID de la task en el array que le manden*/
-  const foundId = (id:string , array: TaskInterface[]) =>{
+  /*const foundId = (id:string , array: TaskInterface[]) =>{
     const isFound = array.some((task) =>{
       return task.id === parseInt(id)
     })
     return isFound
-  }
+  }*/
 
    /* Fumcion para hacer un update al array, que se elimino*/
-  const updateTask = (id: string , array : TaskInterface[]) => {
+  /*const updateTask = (id: string , array : TaskInterface[]) => {
     const updateTask = array.filter((task) => task.id !== parseInt(id));
     return updateTask
-  }
+  }*/
 
    /* Fumcion para borrar las tareas*/
   const deleteTask = (id:string):void =>{
@@ -155,12 +161,9 @@ function App() {
         <section className="grid justify-items-center grid-cols-2 grid-rows-2 gap-4 bg-[#4A90E2] max-h-full max-w-full">
           <h1 className="col-span-2  grid justify-items-center font-mono text-7xl text-white">ToDoApp</h1>
           <InputToDo addNewTask={addNewTask} />
-          {state.map(task => (
-          <p key={task.id}> {task.description}</p>
-        ))}
         </section>
         <section className=" grid grid-cols-1 lg:grid-cols-3 grid-rows-1 gap-4">
-          <CardTask state= {state}  taskStartArray={taskStartArray} taskFinishArray={taskFinishArray} deleteTask ={deleteTask} startTask={startTask} finishTask ={finishTask}/>
+          <CardTask state= {state}  /* taskArray={tasksArray} taskStartArray={taskStartArray} taskFinishArray={taskFinishArray}*/ deleteTask ={deleteTask} startTask={startTask} finishTask ={finishTask}/>
         </section>
       </main>
     </>

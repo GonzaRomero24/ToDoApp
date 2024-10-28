@@ -19,8 +19,6 @@ interface TaskInterface {
 
 type Props = {
   state: TaskInterface[];
-  taskStartArray: TaskInterface[];
-  taskFinishArray: TaskInterface[];
   deleteTask: (value: string) => void;
   startTask: (value: string) => void;
   finishTask: (value: string) => void;
@@ -28,33 +26,33 @@ type Props = {
 
 export const CardTask = ({
   state,
-  taskStartArray,
-  taskFinishArray,
   deleteTask,
   startTask,
   finishTask
 }: Props) => {
-  const [taskView, setTaskView] = useState<TaskInterface[]>([]);
+  //const [taskView, setTaskView] = useState<TaskInterface[]>([]);
   const [view, setView] = useState<boolean>(false);
 
   const viewTask = (id: string): void => {
-    const viewTaskArray = taskArray.filter((task) => task.id === parseInt(id));
+    /*const viewTaskArray = taskArray.filter((task) => task.id === parseInt(id));
     if (viewTaskArray.length > 0) {
       setView(true);
       setTaskView(viewTaskArray);
     } else {
       setView(false);
-    }
+    }*/
+   console.log(id)
   };
 
   const viewTaskinitial = (id: string): void =>{
-    const viewTaskArrayInitial = taskStartArray.filter((task) => task.id === parseInt(id));
+    /*const viewTaskArrayInitial = taskStartArray.filter((task) => task.id === parseInt(id));
     if(viewTaskArrayInitial.length > 0){
       setView(true);
       setTaskView(viewTaskArrayInitial);
     }else{
       setView(false);
-    }
+    }*/
+      console.log(id)
   }
 
   const closeModal = (close: boolean): void => {
@@ -66,7 +64,7 @@ export const CardTask = ({
       console.log(task)
     })}
       <article className="grid grid-cols-1 grid-rows-1 gap-4 m-5">
-        {state.map((task) => (
+        {state.filter((taskFilter) => taskFilter.statusTask === 'No Iniciado').map((task) => (
           <div
             key={task.id}
             className="bg-[#E0E0E0] max-w-sm h-64 rounded overflow-hidden shadow-lg m-4"
@@ -120,7 +118,7 @@ export const CardTask = ({
         ))}
       </article>
       <article className="grid grid-cols-1 grid-rows-1 gap-4 m-5">
-        {taskStartArray.map((task) => (
+        {state.filter((taskFilter) => taskFilter.statusTask === 'Iniciado').map((task) => (  
           <div
             key={task.id}
             className="bg-[#FFD54F] max-w-sm h-64 rounded overflow-hidden shadow-lg"
@@ -171,7 +169,7 @@ export const CardTask = ({
         ))}
       </article>
       <article className="grid grid-cols-1 grid-rows-1 gap-4 m-5">
-        {taskFinishArray.map((task) => (
+        {state.filter((taskFilter) => taskFilter.statusTask === 'Finalizado').map((task) => (
           <div
             key={task.id}
             className="bg-green-500 max-w-sm h-64 rounded overflow-hidden shadow-lg"
@@ -210,9 +208,10 @@ export const CardTask = ({
                 }
               />
             </div>
-          </div>
+          </div>aw
         ))}
       </article>
+      
       {view ? (
         <Modal view={view} closeModal={closeModal} taskView={taskView} />
       ) : (
