@@ -18,7 +18,7 @@ interface TaskInterface {
 }
 
 type Props = {
-  taskArray: TaskInterface[];
+  state: TaskInterface[];
   taskStartArray: TaskInterface[];
   taskFinishArray: TaskInterface[];
   deleteTask: (value: string) => void;
@@ -27,7 +27,7 @@ type Props = {
 };
 
 export const CardTask = ({
-  taskArray,
+  state,
   taskStartArray,
   taskFinishArray,
   deleteTask,
@@ -62,8 +62,11 @@ export const CardTask = ({
   };
   return (
     <>
+    {state.map((task) =>{
+      console.log(task)
+    })}
       <article className="grid grid-cols-1 grid-rows-1 gap-4 m-5">
-        {taskArray.map((task) => (
+        {state.map((task) => (
           <div
             key={task.id}
             className="bg-[#E0E0E0] max-w-sm h-64 rounded overflow-hidden shadow-lg m-4"
