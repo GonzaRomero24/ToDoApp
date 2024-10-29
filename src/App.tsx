@@ -1,6 +1,7 @@
-import { useReducer, useState, useEffect } from "react";
+import { useReducer, useState } from "react";
 import { InputToDo } from "./components/InputToDo";
 import { CardTask } from "./components/CardTask";
+import 'boxicons'
 
 type TaskInterface = {
   id: number;
@@ -54,13 +55,8 @@ const taskReduce = (state : typeof initialState, action: action) =>{
 function App() {
 
   const [state, dispatch] = useReducer( taskReduce, initialState)
-
-  //UseState
-  //const [tasksArray, setTasksArray] = useState<TaskInterface[]>([]);
-  //const [taskStartArray, setTaskStartArray] = useState<TaskInterface[]>([]);
-  //const [taskFinishArray, setTaskFinishArray] = useState<TaskInterface[]>([]);
-  const [lastId, setLastId] = useState<number>(1)
-
+  const [lastId, setLastId] = useState<number>(1);
+  const [isOpenAddTask, setIsOpenAddTask] = useState<boolean>(false);
   
 
   //Funcion para crear un Obketo dependiendo que desea realizar con la tareanpmxwd
@@ -91,79 +87,45 @@ function App() {
   const startTask = (id:string):void =>{
     const foundID = parseInt(id);
     console.log('entra')
-    /*const getTask = tasksArray.filter((task) => task.id === parseInt(id));
-    const statusTask = 'Iniciado'
-    const finish  = false;
-    getTask.map((task) =>{
-      const objectTask = createObjectTask(task.id,  task.description, statusTask, task.priority, task.taskType, finish )
-      setTaskStartArray([...taskStartArray, objectTask]);
-      deleteTask(id);
-    })*/
-
     dispatch({type:'Start-Task' , payload: foundID})
   }
 
   /*Funcion para para finalizar una tarea */
   const finishTask = (id: string) =>{
     const foundID = parseInt(id);
-    /*const getTaskStart = taskStartArray.filter((task) => task.id === parseInt(id));
-    const statusTask = 'Finalizado'
-    const finish  = false;
-    getTaskStart.map((task) =>{
-      const objectTask = createObjectTask(task.id,  task.description, statusTask, task.priority, task.taskType, finish )
-      setTaskFinishArray([...taskFinishArray, objectTask]);
-      deleteTask(id);
-    })*/
     dispatch({type:'Finish-Task', payload: foundID})
   }
-  /* Fumcion para Buscar la ID de la task en el array que le manden*/
-  /*const foundId = (id:string , array: TaskInterface[]) =>{
-    const isFound = array.some((task) =>{
-      return task.id === parseInt(id)
-    })
-    return isFound
-  }*/
-
-   /* Fumcion para hacer un update al array, que se elimino*/
-  /*const updateTask = (id: string , array : TaskInterface[]) => {
-    const updateTask = array.filter((task) => task.id !== parseInt(id));
-    return updateTask
-  }*/
 
    /* Fumcion para borrar las tareas*/
   const deleteTask = (id:string):void =>{
     const foundID = parseInt(id);
-    /*const found  = foundId(id, tasksArray);
-    if(found){
-      const updateArray = updateTask(id, tasksArray)
-      setTasksArray(updateArray)
-    }else{
-      const found  = foundId(id, taskStartArray);
-      if(found){
-        const updateArrayStart = updateTask(id, taskStartArray)
-        setTaskStartArray(updateArrayStart)
-      }else{
-        const updateArrayFinish = updateTask(id, taskFinishArray)
-        setTaskFinishArray(updateArrayFinish)
-      }
-    }*/
     dispatch({type:'Delete-Task' , payload: foundID})
   }
 
-  useEffect(() => {
-    console.log("Current state:", state);
-  }, [state]);
+  const openAddTask = () =>{
+    console.log(isOpenAddTask)
+    setIsOpenAddTask(true)
+  }
+
+  const closeAddTask = (isClose : boolean) =>{
+    setIsOpenAddTask(isClose)
+  }
+
+
 
 
   return (
     <>
       <main className=" ">
-        <section className="grid justify-items-center grid-cols-2 grid-rows-2 gap-4 bg-[#4A90E2] max-h-full max-w-full">
-          <h1 className="col-span-2  grid justify-items-center font-mono text-7xl text-white">ToDoApp</h1>
-          <InputToDo addNewTask={addNewTask} />
+        <section className="flex bg-[#4A90E2] max-h-full max-w-full">
+          <h1 className=" justify-start mx-2 my-2 font-mono text-7xl text-white">ToDoApp</h1>
+          <button className="flex items-center justify-center bg-sky-500 active:bg-sky-700 mx-5 my-5 text-center rounded-lg p-2" onClick={openAddTask}><i className='bx bx-menu bx-md'></i></button>
         </section>
+        <div className={`w-full block flex-grow ${isOpenAddTask ? "block" : "hidden"}`} >
+            <InputToDo addNewTask={addNewTask} isOpenAddTask={isOpenAddTask} closeAddTask={closeAddTask} />
+        </div>
         <section className=" grid grid-cols-1 lg:grid-cols-3 grid-rows-1 gap-4">
-          <CardTask state= {state}  /* taskArray={tasksArray} taskStartArray={taskStartArray} taskFinishArray={taskFinishArray}*/ deleteTask ={deleteTask} startTask={startTask} finishTask ={finishTask}/>
+          <CardTask state= {state}  /*taskArray={tasksArray} taskStartArray={taskStartArray} taskFinishArray={taskFinishArray}*/ deleteTask ={deleteTask} startTask={startTask} finishTask ={finishTask}/>
         </section>
       </main>
     </>

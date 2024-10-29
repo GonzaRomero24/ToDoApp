@@ -208,7 +208,7 @@ export const CardTask = ({
                 }
               />
             </div>
-          </div>aw
+          </div>
         ))}
       </article>
       
