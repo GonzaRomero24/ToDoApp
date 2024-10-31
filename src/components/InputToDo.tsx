@@ -42,8 +42,8 @@ export const InputToDo = ({ addNewTask, isOpenAddTask, closeAddTask}: Props) => 
 
   return (
     <>
-      <div className=" bg-orange-400">
-        <form className="grid gap-4 p-6">
+      <div className=" grid bg-[#232F34]">
+        <form className="grid gap-4 p-6 m-5 bg-[#344955] rounded-lg">
           <input
             onChange={inputChange}
             value={task}
@@ -75,7 +75,7 @@ export const InputToDo = ({ addNewTask, isOpenAddTask, closeAddTask}: Props) => 
           <div className="grid justify-items-center py-3 ">
             <button
               onClick={sendTask}
-              className="bg-[#5CB85C] active:bg-green-400 text-white font-bold rounded p-2"
+              className="bg-[#f8b652] active:bg-[#f7c171] text-white font-bold rounded p-2"
             >
               Guardar Tarea
             </button>

@@ -60,20 +60,20 @@ export const CardTask = ({
   };
   return (
     <>
-    {state.map((task) =>{
-      console.log(task)
-    })}
-      <article className="grid grid-cols-1 grid-rows-1 gap-4 m-5">
+      <article className={`grid justify-items-center grid-cols-1 grid-rows-1 gap-4 bg-slate-100 ${state.filter((taskFilter) => taskFilter.statusTask === 'No Iniciado').length === 0 ? 'hidden' : 'block'}`}>
+        <h2 className="font-bold mt-3">Tareas No Iniciadas</h2>
         {state.filter((taskFilter) => taskFilter.statusTask === 'No Iniciado').map((task) => (
+          
           <div
             key={task.id}
-            className="bg-[#E0E0E0] max-w-sm h-64 rounded overflow-hidden shadow-lg m-4"
+            className="bg-[#4a6572] max-w-max mx-2 rounded-xl overs shadow-lg"
           >
-            <div className="px-6 py-4">
-              <div className="font-bold text-xl mb-2">Tarea N°{task.id}</div>
-              <p className="text-gray-700 text-base">{task.description}</p>
+            
+            <div className="mx-3 my-3">
+              <p className="font-bold text-lg text-white mb-2">Tarea N°{task.id}</p>
+              <p className="text-white text-base">{task.description} </p>
             </div>
-            <div className="px-6 pt-4 pb-2">
+            <div className="px-4">
               <>
               {task.priority == 'Alta' ? console.log('gads'): console.log('SADAS')}
               </>
@@ -81,14 +81,14 @@ export const CardTask = ({
                 : task.priority == 'Media'? 'inline-block bg-orange-300 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2': 'inline-block bg-blue-300 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2'}>
                 Prioridad: {task.priority}
               </span>
-              <span className="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2">
+              <span className="inline-block bg-gray-200 rounded-full px-2 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2">
                 Tipo Tarea: {task.taskType}
               </span>
               <span className="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2">
                 Estado: {task.statusTask}
               </span>
             </div>
-            <div className="flex justify-center ">
+            <div className="flex justify-center my-2 ">
               <Buttons
                 typebutton={<FaRegTrashAlt />}
                 idButton={task.id}
@@ -117,17 +117,19 @@ export const CardTask = ({
           </div>
         ))}
       </article>
-      <article className="grid grid-cols-1 grid-rows-1 gap-4 m-5">
+      <article className={`grid justify-items-center grid-cols-1 grid-rows-1 gap-4 bg-slate-100 ${state.filter((taskFilter) => taskFilter.statusTask === 'Iniciado').length === 0 ? 'hidden' : 'block'}`}>
+        <h3 className="font-bold mt-3">Tareas Iniciadas</h3>
         {state.filter((taskFilter) => taskFilter.statusTask === 'Iniciado').map((task) => (  
           <div
             key={task.id}
-            className="bg-[#FFD54F] max-w-sm h-64 rounded overflow-hidden shadow-lg"
+            className="bg-[#FFD54F] max-w-max mx-2 rounded-xl overs shadow-lg"
           >
-            <div className="px-6 py-4">
+            
+            <div className="mx-3 my-3">
               <div className="font-bold text-xl mb-2">Tarea N°{task.id}</div>
               <p className="text-gray-700 text-base">{task.description}</p>
             </div>
-            <div className="px-6 pt-4 pb-2">
+            <div className=" px-4">
               <span className={task.priority == 'Alta' ? "inline-block bg-red-300 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2"
                 : task.priority == 'Media'? 'inline-block bg-orange-300 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2': 'inline-block bg-blue-300 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2'}>
                 Prioridad: {task.priority}
@@ -139,7 +141,7 @@ export const CardTask = ({
                 Estado: {task.statusTask}
               </span>
             </div>
-            <div className="flex justify-center">
+            <div className="flex justify-center my-2">
               <Buttons
                 typebutton={<FaRegTrashAlt />}
                 idButton={task.id}
@@ -168,17 +170,19 @@ export const CardTask = ({
           </div>
         ))}
       </article>
-      <article className="grid grid-cols-1 grid-rows-1 gap-4 m-5">
+      <article className={`grid justify-items-center grid-cols-1 grid-rows-1 gap-4 bg-slate-100 ${state.filter((taskFilter) => taskFilter.statusTask === 'Finalizado').length === 0 ? 'hidden' : 'block'}`}>
+        <h3 className="font-bold mt-3">Tareas Finalizadas</h3>
         {state.filter((taskFilter) => taskFilter.statusTask === 'Finalizado').map((task) => (
           <div
             key={task.id}
-            className="bg-green-500 max-w-sm h-64 rounded overflow-hidden shadow-lg"
+            className="bg-green-500 max-w-max mx-2 my-2 rounded-xl overs shadow-lg"
           >
-            <div className="px-6 py-4">
+            
+            <div className="mx-3 my-3">
               <div className="font-bold text-xl mb-2">Tarea N°{task.id}</div>
               <p className="text-gray-700 text-base">{task.description}</p>
             </div>
-            <div className="px-6 pt-4 pb-2">
+            <div className="px-4">
               <span className={task.priority == 'Alta' ? "inline-block bg-red-300 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2"
                 : task.priority == 'Media'? 'inline-block bg-orange-300 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2': 'inline-block bg-blue-300 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2'}>
                 Prioridad: {task.priority}

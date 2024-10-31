@@ -117,11 +117,12 @@ function App() {
   return (
     <>
       <main className=" ">
-        <section className="flex bg-[#4A90E2] max-h-full max-w-full">
-          <h1 className=" justify-start mx-2 my-2 font-mono text-7xl text-white">ToDoApp</h1>
-          <button className="flex items-center justify-center bg-sky-500 active:bg-sky-700 mx-5 my-5 text-center rounded-lg p-2" onClick={openAddTask}><i className='bx bx-menu bx-md'></i></button>
+        <section className="flex justify-between bg-[#F9AA33] max-h-full max-w-full">
+          <h1 className="mx-3 my-3 font-mono text-5xl text-white">ToDoApp</h1>
+          <button className={`flex items-end  bg-[#f8b652] active:bg-[#f7c171] my-5 mx-5 text-center rounded-lg p-2 ${isOpenAddTask ? 'hidden' : 'block '}`} onClick={openAddTask}><i className='bx bx-menu bx-sm'></i></button>
         </section>
-        <div className={`w-full block flex-grow ${isOpenAddTask ? "block" : "hidden"}`} >
+        <div className={`w-full block flex-grow ${isOpenAddTask ? "block" : "hidden" } transition-all duration-1000
+                ease-linea`} >
             <InputToDo addNewTask={addNewTask} isOpenAddTask={isOpenAddTask} closeAddTask={closeAddTask} />
         </div>
         <section className=" grid grid-cols-1 lg:grid-cols-3 grid-rows-1 gap-4">
