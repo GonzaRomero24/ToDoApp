@@ -1,4 +1,5 @@
 import { useAddTask } from "../hooks/useAddTask";
+import 'boxicons'
 
 type Props ={
   addNewTask :(task:string, priority:string, taskType:string) => void ;
@@ -42,19 +43,25 @@ export const InputToDo = ({ addNewTask, isOpenAddTask, closeAddTask}: Props) => 
 
   return (
     <>
-      <div className=" grid bg-[#232F34]">
+      <div className=" grid bg-[#232F34] rounded-b-xl">
         <form className="grid gap-4 p-6 m-5 bg-[#344955] rounded-lg">
-          <input
-            onChange={inputChange}
-            value={task}
-            className="shadow appearance-none border rounded w-full py-2 px-3 my-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline "
-            placeholder="Ingrese la descripcion de la  tarea"
-          ></input>
+          <div className="flex items-center">
+            <label htmlFor="input">
+              Descripcion: 
+            </label>
+            <input
+              name="input"
+              onChange={inputChange}
+              value={task}
+              className="shadow appearance-none border rounded w-full py-2 px-3 my-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline "
+              placeholder="Ingrese la descripcion de la  tarea"
+            ></input>
+          </div>
           <div className="flex items-center">
             <label htmlFor="priority" className="mr-3 text-white">
               Prioridad:
             </label>
-            <select name="priority" value={priority} onChange={prioritySelected} className=" shadow appearance-none border rounded w-full py-2 px-3 my-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
+            <select name="priority" value={priority} onChange={prioritySelected} className=" shadow appearance-none border rounded w-30 py-2 px-3 my-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
               <option value={""}  selected >Escoge una opcion</option>
               <option value={'Alta'}>🔴 Alta</option>
               <option value={'Media'}>🟠 Media</option>

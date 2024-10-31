@@ -116,15 +116,19 @@ function App() {
 
   return (
     <>
-      <main className=" ">
+      <main className="h-screen bg-[#5c7b8d]">
         <section className="flex justify-between bg-[#F9AA33] max-h-full max-w-full">
-          <h1 className="mx-3 my-3 font-mono text-5xl text-white">ToDoApp</h1>
-          <button className={`flex items-end  bg-[#f8b652] active:bg-[#f7c171] my-5 mx-5 text-center rounded-lg p-2 ${isOpenAddTask ? 'hidden' : 'block '}`} onClick={openAddTask}><i className='bx bx-menu bx-sm'></i></button>
+          <h1 className="mx-3 my-3 font-mono text-5xl pl-10 text-black">ToDoApp</h1>
+          <button className={`flex items-end  bg-[#f8b652] active:bg-[#f7c171] my-5 mx-5 text-center rounded-lg p-2 ${isOpenAddTask ? 'hidden' : 'block '} xl:hidden`} onClick={openAddTask}><i className='bx bx-menu bx-sm'></i></button>
+          <button className={`xl:flex items-end  bg-[#f8b652] hover:bg-[#f7c171] my-5 mx-5 text-center text- rounded-lg p-2 ${isOpenAddTask ? 'hidden' : 'block '} `}onClick={openAddTask}><i className='bx bxs-message-alt-add bx-sm px-2'></i> Agregar Tarea </button>
         </section>
-        <div className={`w-full block flex-grow ${isOpenAddTask ? "block" : "hidden" } transition-all duration-1000
-                ease-linea`} >
-            <InputToDo addNewTask={addNewTask} isOpenAddTask={isOpenAddTask} closeAddTask={closeAddTask} />
-        </div>
+        <aside className=" grid justify-items-end ">
+          <div className={`w-full block flex-grow fixed ${isOpenAddTask ? "block" : "hidden" } transition-all duration-1000
+                  ease-linea  xl:${isOpenAddTask ? "block" : "hidden" } w-96` } >
+              <InputToDo addNewTask={addNewTask} isOpenAddTask={isOpenAddTask} closeAddTask={closeAddTask} />
+          </div>
+        </aside>
+        
         <section className=" grid grid-cols-1 lg:grid-cols-3 grid-rows-1 gap-4">
           <CardTask state= {state}  /*taskArray={tasksArray} taskStartArray={taskStartArray} taskFinishArray={taskFinishArray}*/ deleteTask ={deleteTask} startTask={startTask} finishTask ={finishTask}/>
         </section>
